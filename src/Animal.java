@@ -2,6 +2,7 @@ public class Animal {
 
     String name;
 
+    protected static int count;
     // ограничения
     protected int swimLimit;
    protected int runLimit;
@@ -9,6 +10,11 @@ public class Animal {
     public Animal(String _name) {
 
         name = _name;
+        count++;
+    }
+
+    public static  int getCount(){
+        return count;
     }
 
     public String getName() {

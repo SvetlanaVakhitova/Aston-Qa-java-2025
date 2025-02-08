@@ -28,19 +28,11 @@ public class Lesson4 {
         dogs[1].run(520);
         dogs[2].run(440);
 
-        // подсчет созданных котов, собак и животных.
-        for (int i = 0; i < cats.length; i++) {
-            catsCount++;
-            animalCount++;
-        }
+        animalCount = Animal.getCount();
+        catsCount = Cat.getCount();
+        dogsCount = Dog.getCount();
 
-        for (int i = 0; i < dogs.length; i++) {
-            dogsCount++;
-            animalCount ++;
-        }
-
-        System.out.println("Итого " + catsCount + " котов, " + dogsCount + " собак," + animalCount + "животныъ");
-
+        System.out.println("Итого " + catsCount + " котов, " + dogsCount + " собак," + animalCount + " животных");
 
         // Создаём миску с едой
         BowlWithFood bigBowl = new BowlWithFood(200);

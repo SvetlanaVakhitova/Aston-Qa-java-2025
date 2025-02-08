@@ -4,11 +4,19 @@ public class Cat extends Animal {
 
     private int foodAmountGetEnough;
 
+    private static int count;
+
     public Cat(String _name, int foodAmountGetEnough) {
         super(_name);
         this.satiety = false;
         this.runLimit = 200;
         this.foodAmountGetEnough = foodAmountGetEnough;
+
+        count++;
+    }
+
+    public static  int getCount(){
+        return count;
     }
 
     /**
