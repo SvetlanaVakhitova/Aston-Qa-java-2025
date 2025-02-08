@@ -1,23 +1,8 @@
-abstract public class GeometricShape implements PerimeterGeometric, AreaGeometric {
+public interface GeometricShape {
 
-    String $fillColor;
-    String $borderColor;
+    public double perimeter();
 
-    public String getName() {
-        return null;
-    }
 
-    public GeometricShape(String $fillColor, String $borderColor) {
-
-        this.$fillColor = $fillColor;
-        this.$borderColor = $borderColor;
-    }
-
-    public String getFillColor() {
-        return this.$fillColor;
-    }
-
-    public String getBorderColor() {
-        return this.$borderColor;
-    }
+    public double area();
+    
 }

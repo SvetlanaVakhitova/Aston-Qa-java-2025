@@ -1,4 +1,4 @@
-public class Rectangle extends GeometricShape {
+public class Rectangle extends Shape {
 
     int a;
     int b;
@@ -17,14 +17,13 @@ public class Rectangle extends GeometricShape {
         return "Прямоугольник";
     }
 
-
     @Override
-    public double calculateArea() {
+    public double area() {
         return this.a * this.b;
     }
 
     @Override
-    public double calculatePerimeter() {
+    public double perimeter() {
         return (this.a + this.b) * 2;
     }
 }

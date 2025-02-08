@@ -38,7 +38,7 @@ public class Lesson4 {
         BowlWithFood bigBowl = new BowlWithFood(200);
 
         // кормим котов из созданной миски
-        cats[0].eat(bigBowl, 90); 
+        cats[0].eat(bigBowl, 90);
         cats[1].eat(bigBowl, 100);
 
         // добавляем еды в миску, чтобы гарантированно хва
@@ -46,21 +46,29 @@ public class Lesson4 {
 
         // снова кормим котов
         cats[0].eat(bigBowl, 200); // ожидаем, что Василий наестся
-        cats[1].eat(bigBowl, 20); // ожидаем, что Финдус уже сытый и поэтому не притронется, хотя еды в миске достаточно
-
+        cats[1].eat(bigBowl, 20); // ожидаем, что Финдус уже сытый и поэтому не притронется, хотя еды в миске
+                                  // достаточно
 
         // задачние 2 (геометрические фигуры)
-        GeometricShape[] geometrics = new GeometricShape[3]; // задаём массив из 3-х фигур, чтобы легче было выводить информацию
+        // Задание 2 - выделять методы по периметру, площади и тд в разные интерфейсы -
+        // нет смысла,
+        // мы же это можем и должны делать по отношению ко всем фигурам -
+        // это как раз должно быть заложено в GeometricShape(это и должно быть
+        // интерфейсом) .
+        // Geometrics - зачем пустой класс? Прошу повторить тему интерфейсов и
+        // переделать
+
+        Shape[] geometrics = new Shape[3]; // задаём массив из 3-х фигур, чтобы легче было выводить информацию
 
         geometrics[0] = new Triangle(1, 2, 3, 4, "red", "black");
         geometrics[1] = new Square(33, "red", "black");
         geometrics[2] = new Rectangle(12, 44, "yellow", "orange");
 
         // вывод результатов в консоль
-        for (GeometricShape geometric : geometrics) {
+        for (Shape geometric : geometrics) {
             System.out.println(geometric.getName());
-            System.out.println("площадь:" + geometric.calculatePerimeter());
-            System.out.println("периметр:" + geometric.calculateArea());
+            System.out.println("площадь:" + geometric.perimeter());
+            System.out.println("периметр:" + geometric.area());
             System.out.println("цвет фона:" + geometric.getFillColor());
             System.out.println("цвет границ:" + geometric.getBorderColor());
         }

@@ -1,4 +1,4 @@
-public class Square extends GeometricShape {
+public class Square extends Shape {
 
     int radius;
     String fillColor;
@@ -16,12 +16,12 @@ public class Square extends GeometricShape {
     }
 
     @Override
-    public double calculateArea() {
+    public double area() {
         return this.radius * this.radius * Math.PI;
     }
 
     @Override
-    public double calculatePerimeter() {
+    public double perimeter() {
 
         return 2 * Math.PI * this.radius;
     }

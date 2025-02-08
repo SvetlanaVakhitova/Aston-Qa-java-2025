@@ -1,4 +1,4 @@
-public class Triangle extends GeometricShape {
+public class Triangle extends Shape {
 
     int a;
     int b;
@@ -22,11 +22,11 @@ public class Triangle extends GeometricShape {
         return "Треугольник";
     }
 
-    public double calculateArea() {
+    public double area() {
         return 0.5 * (this.a * this.h);
     }
 
-    public double calculatePerimeter() {
+    public double perimeter() {
         return this.a + this.b + this.c;
     }
 
