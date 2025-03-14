@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.TimeoutException;
 
 public class HomePage extends BasePage {
 
@@ -180,5 +181,33 @@ public class HomePage extends BasePage {
     public String getDebtAccountPlaceholder() {
         waitForElementVisible(debtAccountInputLocator);
         return driver.findElement(debtAccountInputLocator).getAttribute("placeholder");
+    }
+
+    public void fillServiceForm(String phoneNumber, String sum, String email) {
+        WebElement phoneInput = driver.findElement(ServicesMobilePhoneInputLocator);
+        phoneInput.click();
+        phoneInput.sendKeys(phoneNumber);
+
+        WebElement sumInput = driver.findElement(ServicesSumLocator);
+        sumInput.click();
+        sumInput.sendKeys(sum);
+
+        WebElement emailInput = driver.findElement(ServicesEmailLocator);
+        emailInput.click();
+        emailInput.sendKeys(email);
+    }
+
+    public void submitServiceForm() {
+        driver.findElement(payFormLocator).submit();
+        waitForElementVisible(bepaidFrameLocator);
+    }
+
+    public boolean isBepaidFrameDisplayed() {
+        try {
+            waitForElementVisible(bepaidFrameLocator);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 }
