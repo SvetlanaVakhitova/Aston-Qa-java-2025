@@ -41,7 +41,7 @@ public class MtsByTest {
     }
 
     @Test
-    @Ignore("Не для отчёта")
+    @Ignore("Will be fixed in next sprint")
     public void onlinePaymentSectionTest() {
         // Open homepage and verify title
         homePage.open();
@@ -117,7 +117,7 @@ public class MtsByTest {
     }
 
     @Test
-    @Ignore("Не для отчёта")
+    @Ignore("Will be fixed in next sprint")
     public void servicesFillTest() {
         homePage.open();
 
