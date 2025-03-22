@@ -13,10 +13,14 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.annotations.Ignore;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.HomePage;
 import pages.PaymentFrame;
+import io.qameta.allure.*;
 
+@Epic("MTS Payment System Tests")
+@Feature("Online Payment Section")
 public class MtsByTest {
     private WebDriver driver;
     private HomePage homePage;
@@ -37,6 +41,7 @@ public class MtsByTest {
     }
 
     @Test
+    @Ignore("Не для отчёта")
     public void onlinePaymentSectionTest() {
         // Open homepage and verify title
         homePage.open();
@@ -60,72 +65,59 @@ public class MtsByTest {
         homePage.navigateBack();
         homePage.fillPaymentForm("297777777", "100");
         homePage.submitPaymentForm();
-
     }
 
     @Test
-    /**
-     * 
-     * Проверить надписи в незаполненных полях каждого варианта оплаты услуг: услуги
-     * связи, домашний интернет, рассрочка, задолженность;
-     */
+    @Story("Payment Form Placeholders")
+    @Description("Verifies placeholder text in payment form fields across different payment options")
+    @Severity(SeverityLevel.NORMAL)
     public void onlinePaymentSectionVariantsTest() {
+        openHomePage();
+        
+        Allure.step("Проверка формы Услуги связи", () -> {
+            Assert.assertEquals(homePage.getServicesMobilePhonePlaceholder(),
+                    "Номер телефона", "Mobile phone placeholder mismatch");
+            Assert.assertEquals(homePage.getServicesSumPlaceholder(),
+                    "Сумма", "Sum placeholder mismatch");
+            Assert.assertEquals(homePage.getServicesEmailPlaceholder(),
+                    "E-mail для отправки чека", "Email placeholder mismatch");
+        });
 
+        Allure.step("Проверка формы Домашний интернет", () -> {
+            Assert.assertEquals(homePage.getInternetAccountPlaceholder(),
+                    "Номер абонента", "Internet account placeholder mismatch");
+            Assert.assertEquals(homePage.getInternetSumPlaceholder(),
+                    "Сумма", "Internet sum placeholder mismatch");
+            Assert.assertEquals(homePage.getInternetEmailPlaceholder(),
+                    "E-mail для отправки чека", "Internet email placeholder mismatch");
+        });
+
+        Allure.step("Проверка формы Рассрочка", () -> {
+            Assert.assertEquals(homePage.getInstallmentAccountPlaceholder(),
+                    "Номер счета на 44", "Installment account placeholder mismatch");
+            Assert.assertEquals(homePage.getInstallmentSumPlaceholder(),
+                    "Сумма", "Installment sum placeholder mismatch");
+            Assert.assertEquals(homePage.getInstallmentEmailPlaceholder(),
+                    "E-mail для отправки чека", "Installment email placeholder mismatch");
+        });
+
+        Allure.step("Проверка формы Задолженность", () -> {
+            Assert.assertEquals(homePage.getDebtAccountPlaceholder(),
+                    "Номер счета на 2073", "Debt account placeholder mismatch");
+            Assert.assertEquals(homePage.getDebtSumPlaceholder(),
+                    "Сумма", "Debt sum placeholder mismatch");
+            Assert.assertEquals(homePage.getDebtEmailPlaceholder(),
+                    "E-mail для отправки чека", "Debt email placeholder mismatch");
+        });
+    }
+
+    @Step("Opening MTS homepage")
+    private void openHomePage() {
         homePage.open();
-
-        Assert.assertEquals(homePage.getServicesMobilePhonePlaceholder(),
-                "Номер телефона");
-
-        Assert.assertEquals(homePage.getServicesSumPlaceholder(),
-                "Сумма");
-
-        Assert.assertEquals(homePage.getServicesEmailPlaceholder(),
-                "E-mail для отправки чека");
-
-        homePage.switchToHomeInternetTab();
-
-        Assert.assertEquals(homePage.getInternetAccountPlaceholder(),
-                "Номер абонента");
-
-        Assert.assertEquals(homePage.getInternetSumPlaceholder(),
-                "Сумма");
-
-        Assert.assertEquals(homePage.getInternetEmailPlaceholder(),
-                "E-mail для отправки чека");
-
-        // Check Installment form
-        homePage.switchToInstallmentTab();
-        Assert.assertEquals(homePage.getInstallmentAccountPlaceholder(),
-                "номер счета на 44");
-
-        Assert.assertEquals(homePage.getInstallmentSumPlaceholder(),
-                "Сумма");
-
-        Assert.assertEquals(homePage.getInstallmentEmailPlaceholder(),
-                "E-mail для отправки чека");
-
-        // Check Debt form
-        homePage.switchToDebtTab();
-        Assert.assertEquals(homePage.getDebtAccountPlaceholder(),
-                "Номер счета на 2073");
-
-        Assert.assertEquals(homePage.getDebtSumPlaceholder(),
-                "Сумма");
-
-        Assert.assertEquals(homePage.getDebtEmailPlaceholder(),
-                "E-mail для отправки чека");
     }
 
     @Test
-    /**
-     * Для варианта «Услуги связи» заполнить поля в соответствии с пререквизитами из
-     * предыдущей темы,
-     * нажать кнопку «Продолжить» и в появившемся окне проверить корректность
-     * отображения суммы
-     * (в том числе на кнопке), номера телефона, а также надписей в незаполненных
-     * полях для ввода
-     * реквизитов карты, наличие иконок платёжных систем.
-     */
+    @Ignore("Не для отчёта")
     public void servicesFillTest() {
         homePage.open();
 

@@ -1,3 +1,5 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,103 +16,41 @@ public class HomePage extends BasePage {
     private final By serviceDetailsLinkLocator = By
             .xpath("//div[@class='pay__wrapper']/a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']");
 
-    private final By homeInternetTabLocator = By.cssSelector("button[data-type='internet']");
-    private final By installmentTabLocator = By.cssSelector("button[data-type='installment']");
-    private final By debtTabLocator = By.cssSelector("button[data-type='debt']");
+    private final By submitButtonLocator = By.xpath("//button[@type='submit']");
+    private final By mobilePhoneInputLocator = By.xpath("//input[@placeholder='Номер телефона']");
 
-    // локаторы для формы услуги связи
+    // Tab locators
+    private final By selectHeaderLocator = By.className("select__header");
+    private final By homeInternetTabLocator = By.xpath("//li[contains(@class, 'select__item')][.//p[text()='Домашний интернет']]");
+    private final By installmentTabLocator = By.xpath("//li[contains(@class, 'select__item')][.//p[text()='Рассрочка']]");
+    private final By debtTabLocator = By.xpath("//li[contains(@class, 'select__item')][.//p[text()='Задолженность']]");
+
+    // Services form locators
     private final By ServicesMobilePhoneInputLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='phone']");
     private final By ServicesSumLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='total_rub']");
-    private final By ServicesEmailLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='total_rub']");
+    private final By ServicesEmailLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='email']");
 
-    // локаторы для формы Домашний интернет
+    // Internet form locators
     private final By InternetMobilePhoneInputLocator = By.xpath("//form[@id='pay-internet']/*/input[@class='phone']");
     private final By InternetSumLocator = By.xpath("//form[@id='pay-internet']/*/input[@class='total_rub']");
     private final By InternetEmailLocator = By.xpath("//form[@id='pay-internet']/*/input[@class='email']");
 
-    // локаторы для формы рассрочка
-    private final By InstallmentNumberInputLocator = By
-            .xpath("//form[@id='pay-instalment']/*/input[@id='score-instalment']");
+    // Installment form locators
+    private final By InstallmentNumberInputLocator = By.xpath("//form[@id='pay-instalment']/*/input[@id='score-instalment']");
     private final By InstallmentSumLocator = By.xpath("//form[@id='pay-instalment']/*/input[@class='total_rub']");
     private final By InstallmentEmailLocator = By.xpath("//form[@id='pay-instalment']/*/input[@class='email']");
 
-    // локаторы для формы задолженность
-    private final By DebtScoreInputLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='phone']");
-    private final By DebtSumLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='total_rub']");
-    private final By DebtEmailLocator = By.xpath("//form[@id='pay-connection']/*/input[@class='total_rub']");
-
-    public String getServicesMobilePhonePlaceholder() {
-        waitForElementVisible(ServicesMobilePhoneInputLocator);
-        return driver.findElement(ServicesMobilePhoneInputLocator).getAttribute("placeholder");
-    }
-
-    public String getServicesSumPlaceholder() {
-        waitForElementVisible(ServicesSumLocator);
-        return driver.findElement(ServicesSumLocator).getAttribute("placeholder");
-    }
-
-    public String getServicesEmailPlaceholder() {
-        waitForElementVisible(ServicesEmailLocator);
-        return driver.findElement(ServicesEmailLocator).getAttribute("placeholder");
-    }
-
-    /// ----------
-
-    public String getInternetMobilePhonePlaceholder() {
-        waitForElementVisible(InternetMobilePhoneInputLocator);
-        return driver.findElement(InternetMobilePhoneInputLocator).getAttribute("placeholder");
-    }
-
-    public String getInternetSumPlaceholder() {
-        waitForElementVisible(InternetSumLocator);
-        return driver.findElement(InternetSumLocator).getAttribute("placeholder");
-    }
-
-    public String getInternetEmailPlaceholder() {
-        waitForElementVisible(InternetEmailLocator);
-        return driver.findElement(InternetEmailLocator).getAttribute("placeholder");
-    }
-
-    // ---- рассрочка
-
-    public String getInstallmentNumberPlaceholder() {
-        waitForElementVisible(InstallmentNumberInputLocator);
-        return driver.findElement(InstallmentNumberInputLocator).getAttribute("placeholder");
-    }
-
-    public String getInstallmentSumPlaceholder() {
-        waitForElementVisible(InstallmentSumLocator);
-        return driver.findElement(InstallmentSumLocator).getAttribute("placeholder");
-    }
-
-    public String getInstallmentEmailPlaceholder() {
-        waitForElementVisible(InstallmentEmailLocator);
-        return driver.findElement(InstallmentEmailLocator).getAttribute("placeholder");
-    }
-
-    // -- задолженность
-
-    public String getDebtScorePlaceholder() {
-        waitForElementVisible(DebtScoreInputLocator);
-        return driver.findElement(DebtScoreInputLocator).getAttribute("placeholder");
-    }
-
-    public String getDebtSumPlaceholder() {
-        waitForElementVisible(DebtSumLocator);
-        return driver.findElement(DebtSumLocator).getAttribute("placeholder");
-    }
-
-    public String getDebtEmailPlaceholder() {
-        waitForElementVisible(DebtEmailLocator);
-        return driver.findElement(DebtEmailLocator).getAttribute("placeholder");
-    }
+    // Debt form locators (corrected to use pay-arrears instead of pay-debt)
+    private final By DebtScoreInputLocator = By.xpath("//form[@id='pay-arrears']/*/input[@id='score-arrears']");
+    private final By DebtSumLocator = By.xpath("//form[@id='pay-arrears']/*/input[@class='total_rub']");
+    private final By DebtEmailLocator = By.xpath("//form[@id='pay-arrears']/*/input[@class='email']");
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
     public void open() {
-        driver.get("https://mts.by");
+        driver.get("https://www.mts.by");
         handleCookiePopup();
     }
 
@@ -134,18 +74,45 @@ public class HomePage extends BasePage {
         wait.until(ExpectedConditions.urlContains("poryadok-oplaty-i-bezopasnost-internet-platezhey"));
     }
 
-    public void fillPaymentForm(String phoneNumber, String amount) {
-        WebElement phoneInput = driver.findElement(phoneInputLocator);
-        phoneInput.click();
-        phoneInput.sendKeys(phoneNumber);
+    // Tab switching methods
+    public void switchToHomeInternetTab() {
+        waitForElementClickable(selectHeaderLocator);
+        driver.findElement(selectHeaderLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select__list")));
+        WebElement element = driver.findElement(homeInternetTabLocator);
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InternetMobilePhoneInputLocator));
+    }
 
+    public void switchToInstallmentTab() {
+        waitForElementClickable(selectHeaderLocator);
+        driver.findElement(selectHeaderLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select__list")));
+        WebElement element = driver.findElement(installmentTabLocator);
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InstallmentNumberInputLocator));
+    }
+
+    public void switchToDebtTab() {
+        waitForElementClickable(selectHeaderLocator);
+        driver.findElement(selectHeaderLocator).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select__list")));
+        WebElement element = driver.findElement(debtTabLocator);
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(DebtScoreInputLocator));
+    }
+
+    // Restored methods needed by other tests
+    public void fillPaymentForm(String phone, String sum) {
+        WebElement phoneInput = driver.findElement(mobilePhoneInputLocator);
         WebElement sumInput = driver.findElement(sumInputLocator);
-        sumInput.click();
-        sumInput.sendKeys(amount);
+        
+        phoneInput.sendKeys(phone);
+        sumInput.sendKeys(sum);
     }
 
     public void submitPaymentForm() {
-        driver.findElement(payFormLocator).submit();
+        driver.findElement(submitButtonLocator).click();
         waitForElementVisible(bepaidFrameLocator);
     }
 
@@ -153,34 +120,62 @@ public class HomePage extends BasePage {
         driver.navigate().back();
     }
 
-    public void switchToHomeInternetTab() {
-        waitForElementClickable(homeInternetTabLocator);
-        driver.findElement(homeInternetTabLocator).click();
+    // Services form methods
+    public String getServicesMobilePhonePlaceholder() {
+        waitForElementVisible(ServicesMobilePhoneInputLocator);
+        return driver.findElement(ServicesMobilePhoneInputLocator).getAttribute("placeholder");
     }
 
-    public void switchToInstallmentTab() {
-        waitForElementClickable(installmentTabLocator);
-        driver.findElement(installmentTabLocator).click();
+    public String getServicesSumPlaceholder() {
+        waitForElementVisible(ServicesSumLocator);
+        return driver.findElement(ServicesSumLocator).getAttribute("placeholder");
     }
 
-    public void switchToDebtTab() {
-        waitForElementClickable(debtTabLocator);
-        driver.findElement(debtTabLocator).click();
+    public String getServicesEmailPlaceholder() {
+        waitForElementVisible(ServicesEmailLocator);
+        return driver.findElement(ServicesEmailLocator).getAttribute("placeholder");
     }
 
+    // Internet form methods
     public String getInternetAccountPlaceholder() {
-        waitForElementVisible(internetAccountInputLocator);
-        return driver.findElement(internetAccountInputLocator).getAttribute("placeholder");
+        switchToHomeInternetTab();
+        return driver.findElement(InternetMobilePhoneInputLocator).getAttribute("placeholder");
     }
 
+    public String getInternetSumPlaceholder() {
+        return driver.findElement(InternetSumLocator).getAttribute("placeholder");
+    }
+
+    public String getInternetEmailPlaceholder() {
+        return driver.findElement(InternetEmailLocator).getAttribute("placeholder");
+    }
+
+    // Installment form methods
     public String getInstallmentAccountPlaceholder() {
-        waitForElementVisible(installmentAccountInputLocator);
-        return driver.findElement(installmentAccountInputLocator).getAttribute("placeholder");
+        switchToInstallmentTab();
+        return driver.findElement(InstallmentNumberInputLocator).getAttribute("placeholder");
     }
 
+    public String getInstallmentSumPlaceholder() {
+        return driver.findElement(InstallmentSumLocator).getAttribute("placeholder");
+    }
+
+    public String getInstallmentEmailPlaceholder() {
+        return driver.findElement(InstallmentEmailLocator).getAttribute("placeholder");
+    }
+
+    // Debt form methods
     public String getDebtAccountPlaceholder() {
-        waitForElementVisible(debtAccountInputLocator);
-        return driver.findElement(debtAccountInputLocator).getAttribute("placeholder");
+        switchToDebtTab();
+        return driver.findElement(DebtScoreInputLocator).getAttribute("placeholder");
+    }
+
+    public String getDebtSumPlaceholder() {
+        return driver.findElement(DebtSumLocator).getAttribute("placeholder");
+    }
+
+    public String getDebtEmailPlaceholder() {
+        return driver.findElement(DebtEmailLocator).getAttribute("placeholder");
     }
 
     public void fillServiceForm(String phoneNumber, String sum, String email) {
@@ -209,5 +204,10 @@ public class HomePage extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public String getPartnerLogoAlt(String partner) {
+        WebElement logo = driver.findElement(By.xpath("//div[@class='pay__partners']//img[contains(@src,'" + partner + "')]"));
+        return logo.getAttribute("alt");
     }
 }

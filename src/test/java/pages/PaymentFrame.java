@@ -1,3 +1,8 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 public class PaymentFrame extends BasePage {
     private final By costSectionLocator = By
             .xpath("//div[@class='app-wrapper__content']/div/*/*/*/app-card-page/div/div/div");
